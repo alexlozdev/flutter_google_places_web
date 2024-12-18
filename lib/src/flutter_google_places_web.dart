@@ -111,7 +111,13 @@ class FlutterGooglePlacesWebState extends State<FlutterGooglePlacesWeb> with Sin
       componentsURL = offsetURL + '&components=${widget.components}';
     }
     print(componentsURL);
-    final Map<String, dynamic> response = await http.get(Uri.parse('$componentsURL'), headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Methods': 'GET,POST,HEAD'}).then((value) => jsonDecode(value.body));
+    Map<String, dynamic> response = {};
+    try {
+      response = await http.get(Uri.parse('$componentsURL'), headers: {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Methods': '*'}).then((value) => jsonDecode(value.body));
+    } catch (e) {
+      int i = 0;
+    }
+
     // print(response);
     var predictions = response['predictions'];
     if (predictions != []) {
